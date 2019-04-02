@@ -2,12 +2,18 @@
 # Music Speech Classification                                                    #
 # by Asher Toback                                                                #
 # March 2019                                                                     #
+# https://github.com/Toback/MusicSpeechClassification                            #
 # ------------------------------------------------------------------------------ #
 # Audio classifier for the GTZAN dataset, a small collection of 128 clips of     #
 # both music and speech. Uses an AdaBoosted Support Vector Machine on the        #
 # spectrogram representation of the audio files to achieve over 80%              #
 # classification accuracy. Uses PCA to visualize the data, as well as K-Folds    #
 # cross validation to ensure network doesn't overfit.                            #
+#                                                                                #
+# The GTZAN Music Speech dataset can be downloaded at the link below. To run     #
+# this code simply update the 'speech_folder_path' and 'music_folder_path' to    # 
+# wherever you downloaded them onto your machine.                                #
+# http://marsyas.info/downloads/datasets.html                                    #
 #                                                                                #
 ##################################################################################
 
