@@ -2,18 +2,13 @@
 # Music Speech Classification                                                    #
 # by Asher Toback                                                                #
 # March 2019                                                                     #
-# https://github.com/Toback/MusicSpeechClassification                            #
 # ------------------------------------------------------------------------------ #
 # Audio classifier for the GTZAN dataset, a small collection of 128 clips of     #
 # both music and speech. Uses an AdaBoosted Support Vector Machine on the        #
 # spectrogram representation of the audio files to achieve over 80%              #
-# classification accuracy. Uses PCA to visualize the data, as well as K-Folds    #
-# cross validation to ensure network doesn't overfit.                            #
-#                                                                                #
-# The GTZAN Music Speech dataset can be downloaded at the link below. To run     #
-# this code simply update the 'speech_folder_path' and 'music_folder_path' to    # 
-# wherever you downloaded them onto your machine.                                #
-# http://marsyas.info/downloads/datasets.html                                    #
+# classification accuracy. Uses Principle Component Analysis (PCA) to visualize  #
+# the data, as well as K-Folds cross validation to ensure network doesn't        #
+# overfit.                                                                       #
 #                                                                                #
 ##################################################################################
 
@@ -29,11 +24,20 @@ from sklearn.ensemble import AdaBoostClassifier
 from sklearn import preprocessing
 from sklearn.decomposition import PCA
 
-# Hyper parameters and paths.
+# Minimum K in K-Fold Cross-Validation used in SVM experiments
 MINFOLDS = 6
+
+# Maximum K in K-Fold Cross-Validation used in SVM experiments
 MAXFOLDS = 11
-FOLDSTEP = 1
+
+# Sample rate of audio files from GTZAN. Used to create spectrograms
 SAMPLERATE = 22050
+
+# Number of estimators used when AdaBoosting the linear SVM
+NUMADABOOSTESTIMATORS = 500
+
+# Controls whether PCA is performed on raw audio files or spectrograms
+SPECTROGRAMPCA = True
 speech_folder_path = '/Users/asher/Desktop/ML_Datasets/music_speech/speech_wav'
 music_folder_path = '/Users/asher/Desktop/ML_Datasets/music_speech/music_wav'
 
@@ -59,11 +63,11 @@ def freq_conversion(time_data, sample_rate):
     return np.array(freq_data)
 
 
-def unison_shuffled_copies(a, b, c):
+def unison_shuffled_copies(a, b):
     """Taken from stack overflow. Identically permutes three arrays"""
-    assert len(a) == len(b) and len(a) == len(c)
+    assert len(a) == len(b)
     p = np.random.permutation(len(a))
-    return a[p], b[p], c[p]
+    return a[p], b[p]
 
 
 def confusion_matrix(ans, predicts):
@@ -105,23 +109,24 @@ def main():
     #                      PCA Data Visualization                          #
     #                                                                      #
     ########################################################################
-    # Project frequency data down to its two most separable dimensions found
-    # by Principle Component Analysis. Plot result.
+    # Project input data down to its two most separable dimensions found by
+    # Principle Component Analysis. Plot result.
     print("\n--------------------------")
     print("PRINCIPLE COMPONENT ANALYSIS")
     print("--------------------------")
     print("\nComputing PCA")
     pca = PCA(n_components=2)
-    print(np.shape(t_data))
-    print(np.shape(f_data))
-    f_pca = pca.fit_transform(f_data)
-    f_speech_pca_x = [i[0] for i in f_pca[len(speech_data):]]
-    f_speech_pca_y = [i[1] for i in f_pca[len(speech_data):]]
-    f_music_pca_x = [i[0] for i in f_pca[:len(music_data)]]
-    f_music_pca_y = [i[1] for i in f_pca[:len(music_data)]]
+    if SPECTROGRAMPCA:
+        pca = pca.fit_transform(f_data)
+    else:
+        pca = pca.fit_transform(t_data)
+    speech_pca_x = [i[0] for i in pca[len(speech_data):]]
+    speech_pca_y = [i[1] for i in pca[len(speech_data):]]
+    music_pca_x = [i[0] for i in pca[:len(music_data)]]
+    music_pca_y = [i[1] for i in pca[:len(music_data)]]
 
-    plt.scatter(f_speech_pca_x, f_speech_pca_y, color='red')
-    plt.scatter(f_music_pca_x, f_music_pca_y, color='blue')
+    plt.scatter(speech_pca_x, speech_pca_y, color='red')
+    plt.scatter(music_pca_x, music_pca_y, color='blue')
     red_patch = mpatches.Patch(color='red', label='Speech')
     blue_patch = mpatches.Patch(color='blue', label='Music')
     plt.legend(handles=[red_patch, blue_patch])
@@ -151,7 +156,7 @@ def main():
 
     # Perform K-Folds Cross-Validation on the dataset, where 'K' is
     # controlled by the range of the 'for' loop
-    for i in range(MINFOLDS, MAXFOLDS+1, FOLDSTEP):
+    for i in range(MINFOLDS, MAXFOLDS+1, 1):
         # Prepare for training epoch. Set the number of folds, zero out
         # epoch arrays for accuracy and confusion matrices, and shuffle
         # time and frequency data. Time data is shuffled here even though
@@ -160,8 +165,8 @@ def main():
         print("\n\nNUM FOLDS : " + str(i) + "\n")
         kf = KFold(n_splits=i)
         episode_accuracy = np.full((kf.get_n_splits(f_data)), 0, dtype=float)
-        episode_cm = np.full((kf.get_n_splits(f_data),2,2), 0, dtype=float)
-        t_data, f_data, labels = unison_shuffled_copies(t_data, f_data, labels)
+        episode_cm = np.full((kf.get_n_splits(f_data), 2, 2), 0, dtype=float)
+        f_data, labels = unison_shuffled_copies(f_data, labels)
         j = 0
         for train_index, test_index in kf.split(f_data):
             # Pull out the training and test data specified by the indices
@@ -173,7 +178,8 @@ def main():
             # Create, fit, and predict with an AdaBoosted Support Vector Machine
             # which uses a linear kernel.
             flin_clf = AdaBoostClassifier(svm.LinearSVC(),
-                             n_estimators=500, learning_rate=1.0, algorithm='SAMME')
+                                          n_estimators=NUMADABOOSTESTIMATORS,
+                                          learning_rate=1.0, algorithm='SAMME')
             print("\tFitting")
             flin_clf.fit(train_f_data, train_labels)
             print("\tPredicting")
