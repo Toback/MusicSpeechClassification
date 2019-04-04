@@ -43,7 +43,7 @@ SAMPLERATE = 22050
 NUMADABOOSTESTIMATORS = 500
 
 # Controls whether PCA is performed on raw audio files or spectrograms
-SPECTROGRAMPCA = False
+SPECTROGRAMPCA = True
 speech_folder_path = '/Users/asher/Desktop/ML_Datasets/music_speech/speech_wav'
 music_folder_path = '/Users/asher/Desktop/ML_Datasets/music_speech/music_wav'
 
