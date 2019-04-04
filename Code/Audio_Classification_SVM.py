@@ -43,7 +43,7 @@ SAMPLERATE = 22050
 NUMADABOOSTESTIMATORS = 500
 
 # Controls whether PCA is performed on raw audio files or spectrograms
-SPECTROGRAMPCA = True
+SPECTROGRAMPCA = False
 speech_folder_path = '/Users/asher/Desktop/ML_Datasets/music_speech/speech_wav'
 music_folder_path = '/Users/asher/Desktop/ML_Datasets/music_speech/music_wav'
 
@@ -165,9 +165,7 @@ def main():
     for i in range(MINFOLDS, MAXFOLDS+1, 1):
         # Prepare for training epoch. Set the number of folds, zero out
         # epoch arrays for accuracy and confusion matrices, and shuffle
-        # time and frequency data. Time data is shuffled here even though
-        # it's not used to allow for the data to be lined up with the freq
-        # data for the following 'Mixture of Experts' algorithm.
+        # frequency data.
         print("\n\nNUM FOLDS : " + str(i) + "\n")
         kf = KFold(n_splits=i)
         episode_accuracy = np.full((kf.get_n_splits(f_data)), 0, dtype=float)
@@ -215,7 +213,7 @@ def main():
     print("It has confusion matrix")
     print(np.array(cm)[best_accuracy])
     print("And it occurred when the K-Folds split was "
-          + str(MINFOLDS + FOLDSTEP*best_accuracy))
+          + str(MINFOLDS + best_accuracy))
     plt.title('SVM Classification Accuracy at different K-Fold Values')
     plt.xlabel('Number of Folds used in Cross-Validation')
     plt.ylabel('Accuracy %')
