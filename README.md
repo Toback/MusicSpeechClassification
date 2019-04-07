@@ -3,7 +3,7 @@ For this project I developed two audio classifiers for the GTZAN dataset, a smal
 
 [Music Example](https://raw.githubusercontent.com/Toback/MusicSpeechClassification/master/GTZAN%20Examples/bagpipe.wav)
 
-[Speech Example](https://raw.githubusercontent.com/Toback/MusicSpeechClassification/master/GTZAN%20Examples/acomedy.wav)
+[Speech Example](https://github.com/Toback/MusicSpeechClassification/master/GTZAN%20Examples/acomedy.wav)
 
 First, I used an AdaBoosted Support Vector Machine on the spectrogram representation of the audio files to achieve over 80% classification accuracy. Second, I used a Convolutional Neural Network and was able to produce over 95% accuracy on my test set. I also used PCA to visualize the data, as well as K-Folds cross validation to ensure the network didn't overfit. 
 
