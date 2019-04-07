@@ -1,8 +1,8 @@
 # MusicSpeechClassification
 For this project I developed two audio classifiers for the GTZAN dataset, a small collection of 128 clips of both music and speech. The goal was to create a model which could predict whether a given audio clip was music with singing in it or whether it was human speech. Below are examples taken from the test set.
 
-[Music Example](https://raw.githubusercontent.com/Toback/MusicSpeechClassification
-/master/GTZAN\ Examples/bagpipe.wav)
+[Music Example]("https://raw.githubusercontent.com/Toback/MusicSpeechClassification
+/master/GTZAN Examples/bagpipe.wav")
 
 [Speech Example](https://raw.githubusercontent.com/Toback/ArduinoEffectsPedal/master/Results/Granular_Synthesis_Example.wav)
 
