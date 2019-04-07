@@ -19,7 +19,7 @@ For both models I first changed the data representation from raw audio files to 
 
 <img src=Results/Raw_Audio.png width="425"/> <img src=Results/Spectrogram.png width="425"/> 
 
-In order to train the CNN more quickly, the spectogram were reduced to grey-scaled 80 x 80 pixel images seen below. 
+In order to train the CNN more quickly, the spectrogram were reduced to grey-scaled 80 x 80 pixel images seen below. 
 
 ![Small_Spectrogram](Results/Grey_Small_Spectrogram.png)
 
