@@ -15,7 +15,7 @@ Both accuracy graphs can be seen below.
 
 For both models I first changed the data representation from raw audio files to their corresponding frequency spectrograms which can be seen below. 
 
-<img src="https://raw.githubusercontent.com/Toback/MusicSpeechClassification/master/Results/Raw_Audio.png" width="425"/> <img src=Results/Spectrogram.png width="425"/> 
+<img src=Results/Raw_Audio.png width="425"/> <img src=Results/Spectrogram.png width="425"/> 
 
 The PCA projections below motivate using the frequency spectrogram representation of the audio, as the clusters are considerably more seperable in the spectrogram PCA graph.
 
