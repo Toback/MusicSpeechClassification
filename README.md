@@ -5,7 +5,7 @@ For this project I developed two audio classifiers for the GTZAN dataset, a smal
 
 [Speech Example](GTZAN%20Examples/comedy.wav)
 
-First, I used an AdaBoosted Support Vector Machine with a linear kernel and achieved over 80% classification accuracy. Then I used a three-layer Convolutional Neural Network and was able to produce over 95% accuracy on my test set. I also used PCA to visualize the data, as well as ![K-Folds cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)#k-fold_cross-validation) to ensure the network didn't overfit.
+First, I used an AdaBoosted Support Vector Machine with a linear kernel and achieved over 80% classification accuracy. Then I used a three-layer Convolutional Neural Network and was able to produce over 95% accuracy on my test set. I also used PCA to visualize the data, as well as [K-Folds cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)#k-fold_cross-validation) to ensure the network didn't overfit.
 
 The SVM's accuracy graph is below, with the x-axis being how many folds were used in the cross-validation. The accuracy at a particular fold was taken to be the average of all the models at that fold. 
 
