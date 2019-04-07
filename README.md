@@ -11,7 +11,7 @@ The SVM's accuracy graph is below, with the x-axis being how many folds were use
 
 ![SVM Accuracy](Results/SVM_Accuracy_Graph.png)
 
-The CNN's accuracy graph is below and was created with TensorBoard. The transparent line is the true accuracy of the model, while the bold line is the same line but smoothed out. 
+The CNN's accuracy graph is below, with the x-axis being how many training steps have elapsed, and was created with TensorBoard. The transparent line is the true accuracy of the model, while the bold line is the same line but smoothed out. 
 
 ![CNN Accuracy](Results/CNN_Accuracy_Graph.png)
 
