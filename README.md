@@ -11,7 +11,7 @@ Both accuracy graphs can be seen below.
 
 ![SVM Accuracy](Results/SVM_Accuracy_Graph.png)
 
-![CNN Accuracy](Results/CNN_Accuracy_Graph.png)
+![CNN Accuracy](Results/CNN_Accuracy_Graphic.png)
 
 For both models I first changed the data representation from raw audio files to their corresponding frequency spectrograms which can be seen below. 
 
