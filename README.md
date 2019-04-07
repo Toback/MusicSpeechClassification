@@ -19,6 +19,10 @@ For both models I first changed the data representation from raw audio files to 
 
 <img src=Results/Raw_Audio.png width="425"/> <img src=Results/Spectrogram.png width="425"/> 
 
+In order to train the CNN more quickly, the spectogram were reduced to grey-scaled 80 x 80 pixel images see below. 
+
+![Small_Spectrogram](Results/Grey_Small_Spectrogram.png)
+
 The PCA projections below motivate using the frequency spectrogram representation of the audio, as the clusters are considerably more seperable in the spectrogram PCA graph.
 
 <img src="https://raw.githubusercontent.com/Toback/MusicSpeechClassification/master/Results/Audio_File_PCA.png" width="425"/> <img src="https://raw.githubusercontent.com/Toback/MusicSpeechClassification/master/Results/Spectrogram_PCA.png" width="425"/> 
