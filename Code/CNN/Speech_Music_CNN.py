@@ -12,8 +12,8 @@
 # comments below.                                                              #
 #                                                                              #
 # The GTZAN Music Speech dataset can be downloaded at the link below. To run   #
-# this code simply update the 'speech_folder_path' and 'music_folder_path' to  #
-# wherever you downloaded them onto your machine.                              #
+# this code simply update the 'raw_audio_path' to wherever you downloaded them #
+# onto your machine.                                                           #
 # http://marsyas.info/downloads/datasets.html                                  #
 #                                                                              #
 ################################################################################
