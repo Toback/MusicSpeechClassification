@@ -70,7 +70,7 @@ def freq_conversion(time_data, sample_rate):
 
 
 def unison_shuffled_copies(a, b):
-    """Taken from stack overflow. Identically permutes three arrays"""
+    """Taken from stack overflow. Identically permutes two arrays"""
     assert len(a) == len(b)
     p = np.random.permutation(len(a))
     return a[p], b[p]
